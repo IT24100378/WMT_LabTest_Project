@@ -1,14 +1,17 @@
 import { useState } from "react";
 
 function ItemForm({ initialValues, onSubmit, submitText }) {
+  const defaultValues = {
+    name: "",
+    category: "",
+    price: "",
+    stockQuantity: "",
+    description: "",
+    imageUrl: "",
+  };
+
   const [formData, setFormData] = useState(
-    initialValues || {
-      name: "",
-      category: "",
-      price: "",
-      description: "",
-      imageUrl: "",
-    }
+    initialValues ? { ...defaultValues, ...initialValues } : defaultValues
   );
 
   const handleChange = (e) => {
@@ -21,6 +24,7 @@ function ItemForm({ initialValues, onSubmit, submitText }) {
     onSubmit({
       ...formData,
       price: Number(formData.price),
+      stockQuantity: Number(formData.stockQuantity),
     });
   };
 
@@ -40,6 +44,19 @@ function ItemForm({ initialValues, onSubmit, submitText }) {
         name="price"
         value={formData.price}
         onChange={handleChange}
+        min="0"
+        step="0.01"
+        required
+      />
+
+      <label>Stock Quantity</label>
+      <input
+        type="number"
+        name="stockQuantity"
+        value={formData.stockQuantity}
+        onChange={handleChange}
+        min="0"
+        step="1"
         required
       />
 

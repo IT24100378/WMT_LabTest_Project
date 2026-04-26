@@ -17,6 +17,15 @@ const itemSchema = new mongoose.Schema(
       required: [true, "Price is required"],
       min: [0, "Price cannot be negative"],
     },
+    stockQuantity: {
+      type: Number,
+      required: [true, "Stock quantity is required"],
+      min: [0, "Stock quantity cannot be negative"],
+      validate: {
+        validator: Number.isInteger,
+        message: "Stock quantity must be an integer",
+      },
+    },
     description: {
       type: String,
       required: [true, "Description is required"],
